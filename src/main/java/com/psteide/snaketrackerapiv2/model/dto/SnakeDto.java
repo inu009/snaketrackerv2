@@ -20,6 +20,10 @@ public class SnakeDto {
 
     private List<WeightDto> weightsDto = new ArrayList<>();
 
+    private List<ShedDto> shedsDto = new ArrayList<>();
+
+    private List<NoteDto> notesDto = new ArrayList<>();
+
     public static SnakeDto from(Snake snake){
         SnakeDto snakeDto = new SnakeDto();
         snakeDto.setId(snake.getId());
@@ -33,6 +37,12 @@ public class SnakeDto {
                 .collect(Collectors.toList()));
         snakeDto.setWeightsDto(snake.getWeights()
                 .stream().map(WeightDto::from)
+                .collect(Collectors.toList()));
+        snakeDto.setShedsDto(snake.getSheds()
+                .stream().map(ShedDto::from)
+                .collect(Collectors.toList()));
+        snakeDto.setNotesDto(snake.getNotes()
+                .stream().map(NoteDto::from)
                 .collect(Collectors.toList()));
         return snakeDto;
     }

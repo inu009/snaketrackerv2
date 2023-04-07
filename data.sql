@@ -1,7 +1,8 @@
 TRUNCATE snakes,
 feedings,
 weights,
-sheds;
+sheds,
+notes;
 
 INSERT INTO
     snakes(
@@ -77,3 +78,36 @@ VALUES
     (3000, '05/24/2022', 'Noticed', 1000),
     (3001, '06/01/2022', 'Shed', 1000),
     (3002, '06/12/2022', 'Shed', 1000);
+
+INSERT INTO
+    notes(
+        id,
+        date,
+        note,
+        snake_id
+    )
+VALUES
+    (
+        5000,
+        '06/01/2022',
+        'Suspected she maybe gravid again',
+        1000
+    ),
+    (
+        5001,
+        '06/12/2022',
+        'Just laid her second clutch of eggs, 13 eggs total, but only 3 fertile. Currently in her post-lay shed',
+        1000
+    ),
+    (
+        5002,
+        '06/10/2022',
+        'Seemed extra defensive the last time she has handled',
+        1001
+    ),
+    (
+        5003,
+        '06/12/2022',
+        'Extra active during the day',
+        1002
+    );

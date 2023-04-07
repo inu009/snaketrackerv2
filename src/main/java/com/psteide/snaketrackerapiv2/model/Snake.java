@@ -47,6 +47,12 @@ public class Snake {
     @JoinColumn(name = "snake_id")
     private List<Shed> sheds = new ArrayList<>();
 
+    @OneToMany(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(name = "snake_id")
+    private List<Note> notes = new ArrayList<>();
+
 
     public void addFeeding (Feeding feeding){
         feedings.add(feeding);
@@ -70,6 +76,14 @@ public class Snake {
 
     public void removeShed (Shed shed){
         sheds.remove(shed);
+    }
+
+    public void addNote (Note note){
+        notes.add(note);
+    }
+
+    public void removeNote (Note note){
+        notes.remove(note);
     }
 
     public static Snake from(SnakeDto snakeDto){

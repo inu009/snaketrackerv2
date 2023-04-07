@@ -1,12 +1,7 @@
 package com.psteide.snaketrackerapiv2.service;
 
-import com.psteide.snaketrackerapiv2.model.Feeding;
-import com.psteide.snaketrackerapiv2.model.Snake;
-import com.psteide.snaketrackerapiv2.model.Weight;
-import com.psteide.snaketrackerapiv2.model.Shed;
-import com.psteide.snaketrackerapiv2.model.exception.FeedingAlreadyAssignedException;
-import com.psteide.snaketrackerapiv2.model.exception.ResourceNotFoundException;
-import com.psteide.snaketrackerapiv2.model.exception.WeightAlreadyAssignedException;
+import com.psteide.snaketrackerapiv2.model.*;
+import com.psteide.snaketrackerapiv2.model.exception.*;
 import com.psteide.snaketrackerapiv2.repository.SnakeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,16 +19,19 @@ public class SnakeService {
     private final FeedingService feedingService;
     private final WeightService weightService;
     private final ShedService shedService;
+    private final NoteService noteService;
 
     @Autowired
     public SnakeService(SnakeRepository snakeRepository,
                         FeedingService feedingService,
                         WeightService weightService,
-                        ShedService shedService) {
+                        ShedService shedService,
+                        NoteService noteService) {
         this.snakeRepository = snakeRepository;
         this.feedingService = feedingService;
         this.weightService = weightService;
         this.shedService = shedService;
+        this.noteService = noteService;
     }
 
     public Snake addSnake(Snake snake){
@@ -111,7 +109,7 @@ public class SnakeService {
         Snake snake = getSnake(snakeId);
         Shed shed = shedService.getShed(shedId);
         if(Objects.nonNull(shed.getSnake())){
-            throw new WeightAlreadyAssignedException(shedId,
+            throw new ShedAlreadyAssignedException(shedId,
                     shed.getSnake().getId());
         }
         snake.addShed(shed);
@@ -123,6 +121,26 @@ public class SnakeService {
         Snake snake = getSnake(snakeId);
         Shed shed = shedService.getShed(shedId);
         snake.removeShed(shed);
+        return snake;
+    }
+
+    @Transactional
+    public Snake addNoteToSnake(Long snakeId, Long noteId){
+        Snake snake = getSnake(snakeId);
+        Note note = noteService.getNote(noteId);
+        if(Objects.nonNull(note.getSnake())){
+            throw new NoteAlreadyAssignedException(noteId,
+                    note.getSnake().getId());
+        }
+        snake.addNote(note);
+        return snake;
+    }
+
+    @Transactional
+    public Snake removeNoteFromSnake(Long snakeId, Long noteId){
+        Snake snake = getSnake(snakeId);
+        Note note = noteService.getNote(noteId);
+        snake.removeNote(note);
         return snake;
     }
 
