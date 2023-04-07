@@ -2,8 +2,10 @@ package com.psteide.snaketrackerapiv2.service;
 
 import com.psteide.snaketrackerapiv2.model.Feeding;
 import com.psteide.snaketrackerapiv2.model.Snake;
+import com.psteide.snaketrackerapiv2.model.Weight;
 import com.psteide.snaketrackerapiv2.model.exception.FeedingAlreadyAssignedException;
 import com.psteide.snaketrackerapiv2.model.exception.ResourceNotFoundException;
+import com.psteide.snaketrackerapiv2.model.exception.WeightAlreadyAssignedException;
 import com.psteide.snaketrackerapiv2.repository.SnakeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,13 @@ public class SnakeService {
 
     private final SnakeRepository snakeRepository;
     private final FeedingService feedingService;
+    private final WeightService weightService;
 
     @Autowired
-    public SnakeService(SnakeRepository snakeRepository, FeedingService feedingService) {
+    public SnakeService(SnakeRepository snakeRepository, FeedingService feedingService, WeightService weightService) {
         this.snakeRepository = snakeRepository;
         this.feedingService = feedingService;
+        this.weightService = weightService;
     }
 
     public Snake addSnake(Snake snake){
@@ -75,4 +79,25 @@ public class SnakeService {
         snake.removeFeeding(feeding);
         return snake;
     }
+
+    @Transactional
+    public Snake addWeightToSnake(Long snakeId, Long weightId){
+        Snake snake = getSnake(snakeId);
+        Weight weight = weightService.getWeight(weightId);
+        if(Objects.nonNull(weight.getSnake())){
+            throw new WeightAlreadyAssignedException(weightId,
+                    weight.getSnake().getId());
+        }
+        snake.addWeight(weight);
+        return snake;
+    }
+
+    @Transactional
+    public Snake removeWeightFromSnake(Long snakeId, Long weightId){
+        Snake snake = getSnake(snakeId);
+        Weight weight = weightService.getWeight(weightId);
+        snake.removeWeight(weight);
+        return snake;
+    }
+
 }

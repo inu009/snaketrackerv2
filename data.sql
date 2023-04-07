@@ -1,6 +1,7 @@
 TRUNCATE snakes,
 feedings,
-weights;
+weights,
+sheds;
 
 INSERT INTO
     snakes(
@@ -64,3 +65,15 @@ VALUES
     (4002, '06/12/2022', 535, 1000),
     (4003, '06/12/2022', 400, 1001),
     (4004, '06/12/2022', 305, 1002);
+
+INSERT INTO
+    sheds(
+        id,
+        date,
+        observation,
+        snake_id
+    )
+VALUES
+    (3000, '05/24/2022', 'Noticed', 1000),
+    (3001, '06/01/2022', 'Shed', 1000),
+    (3002, '06/12/2022', 'Shed', 1000);
