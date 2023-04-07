@@ -3,6 +3,7 @@ package com.psteide.snaketrackerapiv2.service;
 import com.psteide.snaketrackerapiv2.model.Feeding;
 import com.psteide.snaketrackerapiv2.model.Snake;
 import com.psteide.snaketrackerapiv2.model.Weight;
+import com.psteide.snaketrackerapiv2.model.Shed;
 import com.psteide.snaketrackerapiv2.model.exception.FeedingAlreadyAssignedException;
 import com.psteide.snaketrackerapiv2.model.exception.ResourceNotFoundException;
 import com.psteide.snaketrackerapiv2.model.exception.WeightAlreadyAssignedException;
@@ -22,12 +23,17 @@ public class SnakeService {
     private final SnakeRepository snakeRepository;
     private final FeedingService feedingService;
     private final WeightService weightService;
+    private final ShedService shedService;
 
     @Autowired
-    public SnakeService(SnakeRepository snakeRepository, FeedingService feedingService, WeightService weightService) {
+    public SnakeService(SnakeRepository snakeRepository,
+                        FeedingService feedingService,
+                        WeightService weightService,
+                        ShedService shedService) {
         this.snakeRepository = snakeRepository;
         this.feedingService = feedingService;
         this.weightService = weightService;
+        this.shedService = shedService;
     }
 
     public Snake addSnake(Snake snake){
@@ -99,5 +105,26 @@ public class SnakeService {
         snake.removeWeight(weight);
         return snake;
     }
+
+    @Transactional
+    public Snake addShedToSnake(Long snakeId, Long shedId){
+        Snake snake = getSnake(snakeId);
+        Shed shed = shedService.getShed(shedId);
+        if(Objects.nonNull(shed.getSnake())){
+            throw new WeightAlreadyAssignedException(shedId,
+                    shed.getSnake().getId());
+        }
+        snake.addShed(shed);
+        return snake;
+    }
+
+    @Transactional
+    public Snake removeShedFromSnake(Long snakeId, Long shedId){
+        Snake snake = getSnake(snakeId);
+        Shed shed = shedService.getShed(shedId);
+        snake.removeShed(shed);
+        return snake;
+    }
+
 
 }
