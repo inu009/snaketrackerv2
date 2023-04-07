@@ -3,6 +3,7 @@ package com.psteide.snaketrackerapiv2.controller;
 import com.psteide.snaketrackerapiv2.model.Feeding;
 import com.psteide.snaketrackerapiv2.model.dto.FeedingDto;
 import com.psteide.snaketrackerapiv2.service.FeedingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,9 @@ import java.util.stream.Collectors;
 public class FeedingController {
 
     private final FeedingService feedingService;
-
+   @Autowired
     public FeedingController(FeedingService feedingService) {
-        this.feedingService = feedingService;
+       this.feedingService = feedingService;
     }
 
     @PostMapping

@@ -18,6 +18,8 @@ public class SnakeDto {
     private String gender;
     private List<FeedingDto> feedingsDto = new ArrayList<>();
 
+    private List<WeightDto> weightsDto = new ArrayList<>();
+
     public static SnakeDto from(Snake snake){
         SnakeDto snakeDto = new SnakeDto();
         snakeDto.setId(snake.getId());
@@ -28,6 +30,9 @@ public class SnakeDto {
         snakeDto.setGender(snake.getGender());
         snakeDto.setFeedingsDto(snake.getFeedings()
                 .stream().map(FeedingDto::from)
+                .collect(Collectors.toList()));
+        snakeDto.setWeightsDto(snake.getWeights()
+                .stream().map(WeightDto::from)
                 .collect(Collectors.toList()));
         return snakeDto;
     }
