@@ -97,4 +97,18 @@ public class SnakeController {
         Snake snake = snakeService.removeShedFromSnake(snakeId, shedId);
         return new ResponseEntity<>(SnakeDto.from(snake), HttpStatus.OK);
     }
+
+    @PostMapping(value = "{snakeId}/notes/{noteId}/add")
+    public ResponseEntity<SnakeDto> addNoteToSnake(@PathVariable final Long snakeId,
+                                                   @PathVariable final Long noteId){
+        Snake snake = snakeService.addNoteToSnake(snakeId, noteId);
+        return new ResponseEntity<>(SnakeDto.from(snake), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "{snakeId}/notes/{noteId}/remove")
+    public ResponseEntity<SnakeDto> removeNoteFromSnake(@PathVariable final Long snakeId,
+                                                        @PathVariable final Long noteId){
+        Snake snake = snakeService.removeNoteFromSnake(snakeId, noteId);
+        return new ResponseEntity<>(SnakeDto.from(snake), HttpStatus.OK);
+    }
 }

@@ -10,7 +10,7 @@ public class WeightDto {
     private Long id;
     private String date;
     private Integer weight;
-    private PlainSnakeDto plainSnakeDto;
+    //private PlainSnakeDto plainSnakeDto;
 
     public static WeightDto from(Weight weight){
         WeightDto weightDto = new WeightDto();
