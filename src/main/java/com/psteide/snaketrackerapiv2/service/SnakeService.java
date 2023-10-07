@@ -2,6 +2,7 @@ package com.psteide.snaketrackerapiv2.service;
 
 import com.psteide.snaketrackerapiv2.model.*;
 import com.psteide.snaketrackerapiv2.model.exception.*;
+import com.psteide.snaketrackerapiv2.repository.FeedingOverrideRepository;
 import com.psteide.snaketrackerapiv2.repository.SnakeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,19 @@ public class SnakeService {
         this.noteService = noteService;
     }
 
+    @Autowired
+    private FeedingOverrideRepository feedingOverrideRepository;
+
+    @Autowired
+    private FeedingOverrideService feedingOverrideService;
+
+
     public Snake addSnake(Snake snake){
-        return snakeRepository.save(snake);
+        snake = snakeRepository.save(snake);
+        FeedingOverride feedingOverride = new FeedingOverride();
+        feedingOverride.setSnake(snake);
+        feedingOverrideRepository.save(feedingOverride);
+        return snake;
     }
 
     public List<Snake> getSnakes(){
@@ -95,6 +107,7 @@ public class SnakeService {
         snake.addWeight(weight);
         return snake;
     }
+
 
     @Transactional
     public Snake removeWeightFromSnake(Long snakeId, Long weightId){

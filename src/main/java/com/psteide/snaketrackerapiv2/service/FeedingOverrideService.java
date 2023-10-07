@@ -33,7 +33,7 @@ public class FeedingOverrideService {
         feedingOverrideToEdit.setFrequencyOverride(feedingOverride.getSizeOverride());
         feedingOverrideToEdit.setSizeOverride(feedingOverride.getSizeOverride());
         feedingOverrideToEdit.setMealSize(feedingOverride.getMealSize());
-        feedingOverrideToEdit.setDate(feedingOverride.getDate());
+        feedingOverrideToEdit.setFrequency(feedingOverride.getFrequency());
         return feedingOverrideToEdit;
     }
 
