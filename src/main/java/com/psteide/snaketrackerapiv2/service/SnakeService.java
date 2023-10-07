@@ -34,9 +34,7 @@ public class SnakeService {
         this.noteService = noteService;
     }
 
-    public Snake addSnake(Snake snake){
-        return snakeRepository.save(snake);
-    }
+    public Snake addSnake(Snake snake){return snakeRepository.save(snake);}
 
     public List<Snake> getSnakes(){
         return StreamSupport

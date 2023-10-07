@@ -1,7 +1,10 @@
 package com.psteide.snaketrackerapiv2.controller;
 
+import com.psteide.snaketrackerapiv2.model.FeedingOverride;
 import com.psteide.snaketrackerapiv2.model.Snake;
+import com.psteide.snaketrackerapiv2.model.dto.FeedingOverrideDto;
 import com.psteide.snaketrackerapiv2.model.dto.SnakeDto;
+import com.psteide.snaketrackerapiv2.service.FeedingOverrideService;
 import com.psteide.snaketrackerapiv2.service.SnakeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +26,13 @@ public class SnakeController {
         this.snakeService = snakeService;
     }
 
+    @Autowired
+    private FeedingOverrideService feedingOverrideService;
     @PostMapping
     public ResponseEntity<SnakeDto> addSnake(@RequestBody final SnakeDto snakeDto){
         Snake snake = snakeService.addSnake(Snake.from(snakeDto));
+        FeedingOverride feedingOverride = new FeedingOverride();
+        snake.setFeedingOverride(feedingOverride);
         return new ResponseEntity<>(SnakeDto.from(snake), HttpStatus.OK);
     }
 

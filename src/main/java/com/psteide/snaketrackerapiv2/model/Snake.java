@@ -53,6 +53,9 @@ public class Snake {
     @JoinColumn(name = "snake_id")
     private List<Note> notes = new ArrayList<>();
 
+    @OneToOne(mappedBy = "snake", cascade = CascadeType.PERSIST)
+    private FeedingOverride feedingOverride;
+
 
     public void addFeeding (Feeding feeding){
         feedings.add(feeding);

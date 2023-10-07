@@ -1,6 +1,7 @@
 package com.psteide.snaketrackerapiv2.model.dto;
 
 import com.psteide.snaketrackerapiv2.model.Feeding;
+import com.psteide.snaketrackerapiv2.model.FeedingOverride;
 import com.psteide.snaketrackerapiv2.model.Snake;
 import lombok.Data;
 
@@ -24,6 +25,9 @@ public class SnakeDto {
 
     private List<NoteDto> notesDto = new ArrayList<>();
 
+    private FeedingOverride feedingOverride;
+
+
     public static SnakeDto from(Snake snake){
         SnakeDto snakeDto = new SnakeDto();
         snakeDto.setId(snake.getId());
@@ -44,6 +48,7 @@ public class SnakeDto {
         snakeDto.setNotesDto(snake.getNotes()
                 .stream().map(NoteDto::from)
                 .collect(Collectors.toList()));
+        snakeDto.setFeedingOverride(snake.getFeedingOverride());
         return snakeDto;
     }
 }

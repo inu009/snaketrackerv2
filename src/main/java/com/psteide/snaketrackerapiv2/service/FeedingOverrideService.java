@@ -27,13 +27,14 @@ public class FeedingOverrideService {
                 .stream(feedingOverrideRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
+
     @Transactional
     public FeedingOverride editFeedingOverride(Long id, FeedingOverride feedingOverride){
         FeedingOverride feedingOverrideToEdit = getFeedingOverride(id);
         feedingOverrideToEdit.setFrequencyOverride(feedingOverride.getSizeOverride());
         feedingOverrideToEdit.setSizeOverride(feedingOverride.getSizeOverride());
         feedingOverrideToEdit.setMealSize(feedingOverride.getMealSize());
-        feedingOverrideToEdit.setDate(feedingOverride.getDate());
+        feedingOverrideToEdit.setFrequency(feedingOverride.getFrequency());
         return feedingOverrideToEdit;
     }
 
