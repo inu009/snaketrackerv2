@@ -3,6 +3,7 @@ feedings,
 weights,
 sheds,
 notes;
+feeding_override;
 
 INSERT INTO
     snakes(
@@ -137,4 +138,47 @@ VALUES
         '06/12/2023',
         'Extra active during the day',
         1002
+    );
+
+INSERT INTO
+    feeding_override(
+        id,
+        frequency_override,
+        meal_size,
+        size_override,
+        frequency,
+        snake_id
+    )
+VALUES
+    (
+        6000,
+        false,
+        null,
+        false,
+        null,
+        1000
+    ),
+    (
+        6001,
+                false,
+                null,
+                false,
+                null,
+                1001
+    ),
+    (
+        6002,
+                false,
+                null,
+                false,
+                null,
+                1002
+    ),
+    (
+        6003,
+                false,
+                null,
+                false,
+                null,
+                1003
     );
