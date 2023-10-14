@@ -53,6 +53,10 @@ public class Snake {
     @JoinColumn(name = "snake_id")
     private List<Note> notes = new ArrayList<>();
 
+    @OneToOne(mappedBy = "snake", cascade = CascadeType.ALL)
+    @JoinColumn(name="snake_id")
+    private FeedingOverride feedingOverride;
+
 
     public void addFeeding (Feeding feeding){
         feedings.add(feeding);
@@ -85,6 +89,7 @@ public class Snake {
     public void removeNote (Note note){
         notes.remove(note);
     }
+
 
     public static Snake from(SnakeDto snakeDto){
         Snake snake = new Snake();
