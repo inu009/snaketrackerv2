@@ -30,7 +30,7 @@ public class FeedingOverrideService {
     @Transactional
     public FeedingOverride editFeedingOverride(Long id, FeedingOverride feedingOverride){
         FeedingOverride feedingOverrideToEdit = getFeedingOverride(id);
-        feedingOverrideToEdit.setFrequencyOverride(feedingOverride.getSizeOverride());
+        feedingOverrideToEdit.setFrequencyOverride(feedingOverride.getFrequencyOverride());
         feedingOverrideToEdit.setSizeOverride(feedingOverride.getSizeOverride());
         feedingOverrideToEdit.setMealSize(feedingOverride.getMealSize());
         feedingOverrideToEdit.setFrequency(feedingOverride.getFrequency());
